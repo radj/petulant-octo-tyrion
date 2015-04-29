@@ -1,0 +1,118 @@
+<html>
+    
+    <head>
+        <title>Handlebars objects</title>
+
+        <!-- 0) Include that gentlemanly piece of script -->
+        <script src="handlebars-v3.0.3.js" type="text/javascript"></script>
+        <script src="jquery.min.js" type="text/javascript"></script>
+        <link href="bootstrap.min.css" rel="stylesheet" media="screen">
+        <script src="bootstrap.min.js"></script>
+    </head>
+
+    <body>
+
+         <!-- START OF PAGE -->
+        <div class="container">
+            <p>&nbsp;</p>
+            
+            <div class="jumbotron">
+                <h2>Objection, your honor!</h2>
+                <p>This is an example of love. Kidding. An example of iterating through Javascript lists and objects.<p>
+            </div>
+
+            <!-- 1) Your target element -->
+            <div class="accordion panel-group" >
+            <div id="contenthere"></div>
+            </div>
+
+            <p><em>Let's talk about love, Judge Manuel Patalinghug.</em></p>
+        </div>
+        <!-- END OF PAGE -->
+
+
+        <!-- Nothing to see down here, all scripts -->
+        
+        <!-- 2) Your handlebars template -->
+        <script id="hb-template" type="text/x-handlebars-template">
+            {{#each desserts }}
+            <div class="accordion-group panel panel-default">
+                
+                <!-- panel header -->
+                <div class="accordion-heading panel-heading">
+                  <a role="button" class="accordion-toggle fullpath" data-toggle="collapse" href="#dessert-{{@key}}">
+                    {{ @key }}
+                  </a>
+                </div>
+
+                <!-- panel body -->
+                <div id="dessert-{{ @key }}" class="accordion-body panel-collapse collapse">
+                  <div class="accordion-inner panel-body">
+
+                    <p><strong>Taste</strong>: {{ taste }}</p>
+                    <p><strong>Ingredients</strong>: {{ ingredients }}</p>
+
+                    <p><strong>Other things:</strong></p>
+                    <ul>
+                        {{#each notes}}
+                        <li>{{ this }}</li>
+                        {{/each}}
+                    </ul>
+
+                  </div>
+                </div>
+
+              </div>
+            {{/each }}
+        </script>
+
+        <!-- 3) Compile your template -->
+        <script type="text/javascript">
+            
+            var source       = $("#hb-template").html();
+            var template     = Handlebars.compile(source);
+            var context      = {
+                                    desserts: { 
+                                                'Lemondrops' : {
+                                                    'taste' : 'sour',
+                                                    'ingredients' : 'Lemon, drops, sugar, etc.',
+                                                    'notes' : ['Very nice', 'Can be alcoholic']
+                                                },
+                                                'Tart' : {
+                                                    'taste' : 'sweet',
+                                                    'ingredients' : 'T, A, R, T, etc.',
+                                                    'notes' : ['I\'m really not sure', 'What else to say']
+                                                },
+                                                'Candycanes' : {
+                                                    'taste' : 'sweet',
+                                                    'ingredients' : 'Candy, canes, santa, claus, etc.',
+                                                    'notes' : ['Can be peppermint green & white', 'Or that other red & white flavor']
+                                                },
+                                                'Jellybeans' : {
+                                                    'taste' : 'sweet > sour',
+                                                    'ingredients' : 'Sugar, magic, rainbows, food coloring, etc.',
+                                                    'notes' : ['They look like kidneys but are actually bad for kidneys.']
+                                                },
+                                                'Chocolate' : {
+                                                    'taste' : 'sweet',
+                                                    'ingredients' : 'Cocoa powder, sugar, panda bears, etc.',
+                                                    'notes' : ['An aphrodisiac', 'Everything is an aphrodisiac nowadays']
+                                                },
+                                                'Donut' : {
+                                                    'taste' : 'sweet',
+                                                    'ingredients' : 'Dough, sugar, honey, chocolate, etc.',
+                                                    'notes' : ['Get one at Krispy Kreme', 'I don\'t like J.Co', 'Dunkin donut is best donut']
+                                                }
+                                              },
+                               };
+            
+            var compiledHTML = template(context);
+
+            // 4) Populate your target element with the compiled data
+            document.getElementById("contenthere").innerHTML = compiledHTML;
+
+        </script>
+
+    </body>
+
+</html>

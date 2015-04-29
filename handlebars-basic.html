@@ -1,0 +1,64 @@
+<html>
+    
+    <head>
+        <title>Handlebars basics</title>
+
+        <!-- 0) Include that gentlemanly piece of script -->
+        <script src="handlebars-v3.0.3.js" type="text/javascript"></script>
+        <script src="jquery.min.js" type="text/javascript"></script>
+        <link href="bootstrap.min.css" rel="stylesheet" media="screen">
+    </head>
+
+    <body>
+
+        <!-- START OF PAGE -->
+        <div class="container">
+            <p>&nbsp;</p>
+
+            <!-- 1) Your target element -->
+            <div id="contenthere" class="jumbotron">
+            </div>
+
+            <p>Lemon drops tart tart. Candy canes cheesecake jelly beans. Donut chocolate oat cake I love lemon drops muffin.</p>
+            <p>Jelly lemon drops carrot cake gummies sugar plum pastry bonbon. Topping chocolate bar ice cream gummi bears cake jelly beans jelly-o. Macaroon bonbon topping I love I love cupcake halvah chocolate gingerbread. Chocolate cotton candy gingerbread dragee fruitcake.</p>
+        </div>
+        <!-- END OF PAGE -->
+
+
+        <!-- Nothing to see down here, all scripts -->
+        
+        <!-- 2) Your handlebars template -->
+        <script id="hb-template" type="text/x-handlebars-template">
+            <div class="entry">
+                <h1>{{ title }}</h1>
+                <p class="body">
+                    {{ body }}
+                </p>
+                
+                {{#if footer}}
+                <p><em>{{ footer }}</em></p>
+                {{/if}}
+            </div>
+        </script>
+
+        <!-- 3) Compile your template -->
+        <script type="text/javascript">
+            
+            var source       = $("#hb-template").html();
+            var template     = Handlebars.compile(source);
+            var context      = {
+                                    title:  "I mustache you a question...",
+                                    body:   "Brace yourselves. Movember is coming. Far away, yet coming. But to answer you, eyebrows Google for information.",
+                                    // footer: "I'm not sure what I'm doing!",
+                               };
+            
+            var compiledHTML = template(context);
+
+            // 4) Populate your target element with the compiled data
+            document.getElementById("contenthere").innerHTML = compiledHTML;
+
+        </script>
+
+    </body>
+
+</html>
